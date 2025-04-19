@@ -1,11 +1,13 @@
 version: '3.8'
 
 services:
-  app:
+  mongo:
     image: mongo
     ports:
-      - "5000:5000"
+      - "27017:27017"
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=guilherme
-      - MONGO_INITDB_ROOT_PASSWORD=gui321
-      - MONGO_INITDB_ROOT_DB=dbchat
+      MONGO_INITDB_ROOT_USERNAME: guilherme
+      MONGO_INITDB_ROOT_PASSWORD: gui321
+      MONGO_INITDB_DATABASE: chat
+      MONGO_REPLICA_HOST: localhost
+      MONGO_REPLICA_PORT: 27017
