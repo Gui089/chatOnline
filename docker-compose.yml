@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  app:
+    image: mongo
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=guilherme
+      - MONGO_INITDB_ROOT_PASSWORD=gui321
+      - MONGO_INITDB_ROOT_DB=dbchat
