@@ -18,10 +18,18 @@ export class PrismaUsersRepository implements UsersRepository {
      });
   }
 
-  findByEmail(email: string): Promise<UserEntity | null> {
-    throw new Error("Method not implemented.");
+  async findByEmail(email: string): Promise<UserProps | null> {
+    return await this.prisma.user.findUnique({
+      where: {
+        email:email
+      }
+    });
   }
-  findById(id: string): Promise<UserEntity | null> {
-    throw new Error("Method not implemented.");
+  async findById(id: string): Promise<UserProps | null> {
+    return await this.prisma.user.findUnique({
+      where: {
+        id
+      }
+    });
   }
 }

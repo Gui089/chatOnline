@@ -2,6 +2,6 @@ import { UserEntity, UserProps } from "./user";
 
 export interface UsersRepository {
   create(user: UserEntity): Promise<void>;
-  findByEmail(email:string): Promise<UserEntity | null>;
-  findById(id:string): Promise<UserEntity | null>;
+  findByEmail(email:string): Promise<UserProps | null>;
+  findById(id:string): Promise<UserProps | null>;
 }
