@@ -1,4 +1,4 @@
-import { UserEntity } from "./user";
+import { UserEntity, UserProps } from "./user";
 
 export interface UsersRepository {
   create(user: UserEntity): Promise<void>;

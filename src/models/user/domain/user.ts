@@ -1,43 +1,49 @@
-
+import * as bcrypt from 'bcryptjs';
 
 export interface UserProps {
-  user_id: string;
+  id?: string;
   name: string;
   email: string;
   password: string;
 }
 
 export class UserEntity {
-  private userId: string;
-  private name: string;
-  private email: string;
-  private password: string;
+  id: string;
+  name: string;
+  email: string;
+  password: string;
 
   constructor(props: UserProps) {
-    this.userId = props.user_id;
+    if (!this.validateEmail(props.email)) {
+      throw new Error('Invalid email');
+    }
+
+    this.id = props.id ?? crypto.randomUUID();
     this.name = props.name;
     this.email = props.email;
-    this.password = props.password;
+    this.password = props.password; 
+    this.password = this.hashPassword(this.password);
   }
 
-  get getEmail() {
-    return this.email;
+  private hashPassword(password: string): string {
+    const salt = bcrypt.genSaltSync(10);
+    return bcrypt.hashSync(password, salt);
   }
 
-  get getId() {
-    return this.userId;
+  private validateEmail(email: string): boolean {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
   }
 
-  get getName() {
-    return this.name;
+  public isPasswordCorrect(password: string): boolean {
+    return bcrypt.compareSync(password, this.password);
   }
 
   toJSON() {
     return {
-      id: this.userId,
+      id: this.id,
       name: this.name,
       email: this.email,
     };
   }
-
 }
